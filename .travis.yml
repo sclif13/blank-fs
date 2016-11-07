@@ -17,7 +17,7 @@ after_success:
   - go build -ldflags "-X main.buildTime=`date +%Y-%m-%d:%H:%M:%S` -X main.gitHash=`git rev-parse --short HEAD`"
   - echo ${TRAVIS_BRANCH}
   - echo ${TRAVIS_TAG}
-  - if [[ ${TRAVIS_BRANCH} == "master" && ${TRAVIS_TAG} ]]; then
+  - if [[ ${TRAVIS_TAG} ]]; then
       upx --best blank-fs;
     fi
 deploy:

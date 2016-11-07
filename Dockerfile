@@ -1,8 +1,8 @@
 FROM getblank/busybox
 MAINTAINER Opryshko Alexandr <sclif13@gmail.com>
 
-RUN wget http://releases.getblank.net/blank-fs/linux/blank-fs -O /bin/blank-fs \
-&& chmod +x /bin/blank-fs \
+COPY ./blank-fs /bin/blank-fs
+RUN chmod +x /bin/blank-fs \
 && mkdir /app
 
 WORKDIR /app

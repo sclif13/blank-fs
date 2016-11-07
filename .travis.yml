@@ -3,6 +3,8 @@ os:
   - linux
 go:
   - 1.7
+services:
+  - docker
 install:
   - sudo apt-get install -qq upx
   - go get github.com/Sirupsen/logrus
@@ -14,6 +16,12 @@ script: go get -t -v ./...
 after_success:
   - go build -ldflags "-X main.buildTime=`date +%Y-%m-%d:%H:%M:%S` -X main.gitHash=`git rev-parse --short HEAD`"
   - upx --best blank-fs
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  - if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_TAG ]]; then
+    echo $TRAVIS_BRANCH;
+    echo $TRAVIS_TAG;
+    fi
 deploy:
   provider: releases
   api_key: $TOKEN
